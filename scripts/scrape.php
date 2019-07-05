@@ -23,5 +23,11 @@ $jobs_obj_array = array_map(function($job_row){
 
 # Save data
 $jobs_json = json_encode($jobs_obj_array);
-$a = file_put_contents($config['jobs_data_filepath'], $jobs_json);
-echo "Success: Saved jobs data to " . $config['jobs_data_filepath'];
+
+if ($success = file_put_contents($config['jobs_data_filepath'], $jobs_json)) {
+    echo "Success: Saved jobs data to " . $config['jobs_data_filepath'];
+}
+else {
+    echo "Error saving jobs data to " . $config['jobs_data_filepath'];
+}
+
