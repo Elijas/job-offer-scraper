@@ -2,7 +2,7 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
-if (!CONFIG['jobs_data_folder']) {
+if (!CONFIG['jobs_data_filepath']) {
     echo "Config variable is not set";  # If this is set to "" then script will delete files in the current directory
     exit(1);
 }
