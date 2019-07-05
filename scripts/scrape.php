@@ -46,9 +46,9 @@ function saveJobsData($jobs)
 
         $filename = CONFIG['jobs_data_folder'] . '/' . $key . ".json";
         if ($success = file_put_contents($filename, $job_json)) {
-            echo "Success: Saved job data to " . $filename;
+            echo "Success: Saved job data to " . $filename . "\n";
         } else {
-            echo "Error saving job data to " . $filename;
+            echo "Error saving job data to " . $filename . "\n";
         }
     }
 }
