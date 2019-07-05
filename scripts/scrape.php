@@ -2,6 +2,7 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
+
 if (!CONFIG['jobs_data_folder']) {
     echo "Config variable is not set";  # If this is set to "" then script will delete files in the current directory
     exit(1);
@@ -37,7 +38,9 @@ function scrapeJobsData($html_source)
 
 function saveJobsData($jobs)
 {
-    array_map('unlink', glob(CONFIG['jobs_data_folder'] . '/*')); # Delete all files in folder
+    if ($folder = CONFIG['jobs_data_folder']) {  # Make sure we're not deleting current directory
+        array_map('unlink', glob($folder . '/*'));  # Delete all files in folder
+    }
 
     foreach ($jobs as $key=>$job)
     {
