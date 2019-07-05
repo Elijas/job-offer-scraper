@@ -2,14 +2,13 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
-if ( $argc != 1 )
-{
+if ($argc != 1) {
     echo "You must provide no arguments.\n";
     echo "Usage example: ./validate.php";
     exit(1);
 }
 
-foreach(glob(CONFIG['jobs_data_folder'] . '/*.json') as $json_filepath) {
+foreach (glob(CONFIG['jobs_data_folder'] . '/*.json') as $json_filepath) {
     echo "== Checking: " . $json_filepath . "\n";
 
     $job_data = json_decode(file_get_contents($json_filepath));

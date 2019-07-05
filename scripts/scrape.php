@@ -2,7 +2,6 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
-
 if (!CONFIG['jobs_data_folder']) {
     echo "Config variable is not set";  # If this is set to "" then script will delete files in the current directory
     exit(1);
@@ -18,7 +17,7 @@ function scrapeJobsData($html_source)
 {
     $dom = phpQuery::newDocument($html_source);
 
-    $jobs = $dom->find("div.career.panel-group > div.panel")->map(function($panel_element) {
+    $jobs = $dom->find("div.career.panel-group > div.panel")->map(function ($panel_element) {
         $panel = pq($panel_element);
         $link = $panel->find('a:contains(Apply for this position)');
 
@@ -39,11 +38,10 @@ function scrapeJobsData($html_source)
 function saveJobsData($jobs)
 {
     if ($folder = CONFIG['jobs_data_folder']) {  # Make sure we're not deleting current directory
-        array_map('unlink', glob($folder . '/*'));  # Delete all files in folder
+        array_map('unlink', glob($folder . '/*'));  # Delete all files in folder#
     }
 
-    foreach ($jobs as $key=>$job)
-    {
+    foreach ($jobs as $key => $job) {
         $job_json = json_encode($job);
 
         $filename = CONFIG['jobs_data_folder'] . '/' . $key . ".json";
