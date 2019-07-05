@@ -1,33 +1,41 @@
 <?php
-require 'lib/phpQuery.php';
-$config = require '../config.php';
+require '../vendor/autoload.php';
+require '../config.php';
 
-# Open URL
-$url_contents = file_get_contents($config['scrape_target_url']);
-$url_document = phpQuery::newDocument($url_contents);
+$html_source = file_get_contents(CONFIG['scrape_target_url']);
+$jobs = scrapeJobsData($html_source);
+saveJobsData($jobs);
 
-# Read data
-$job_titles = $url_document->find('.media-heading')->elements;
-$office_locations = $url_document->find('.location')->elements;
-$dates = $url_document->find('.date')->elements;
+function scrapeJobsData($html_source)
+{
+    $dom = phpQuery::newDocument($html_source);
 
-# Structure data
-$jobs_2d_array = array_map(null, $job_titles, $office_locations, $dates);
-$jobs_obj_array = array_map(function($job_row){
-    return(array(
-        'title' => $job_row[0]->textContent,
-        'location' => $job_row[1]->textContent,
-        'date' => $job_row[2]->textContent
-    ));
-}, $jobs_2d_array);
+    $jobs = $dom->find("div.career.panel-group > div.panel")->map(function($panel_element) {
+        $panel = pq($panel_element);
+        $link = $panel->find('a:contains(Apply for this position)');
 
-# Save data
-$jobs_json = json_encode($jobs_obj_array);
+        $job = new stdClass();
+        $job->title = $panel->find('.media-heading')->text();;
+        $job->location = $panel->find('.location')->text();
+        $job->date = $panel->find('.date')->text();
+        $job->content = $link->parent()->prevAll()->reverse()->text();
+        $job->apply_link = $link->attr('href');
+        return $job;
+    })->get();
 
-if ($success = file_put_contents($config['jobs_data_filepath'], $jobs_json)) {
-    echo "Success: Saved jobs data to " . $config['jobs_data_filepath'];
-}
-else {
-    echo "Error saving jobs data to " . $config['jobs_data_filepath'];
+    phpQuery::unloadDocuments(); # Clear memory
+
+    return $jobs;
 }
 
+function saveJobsData($jobs)
+{
+    $jobs_json = json_encode($jobs);
+
+    if ($success = file_put_contents(CONFIG['jobs_data_filepath'], $jobs_json)) {
+        echo "Success: Saved jobs data to " . CONFIG['jobs_data_filepath'];
+    }
+    else {
+        echo "Error saving jobs data to " . CONFIG['jobs_data_filepath'];
+    }
+}

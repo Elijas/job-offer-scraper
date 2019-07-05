@@ -6,4 +6,23 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Callback' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/Callback.php',
+    'CallbackBody' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/Callback.php',
+    'CallbackParam' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/Callback.php',
+    'CallbackParameterToReference' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/Callback.php',
+    'CallbackReturnReference' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/Callback.php',
+    'CallbackReturnValue' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/Callback.php',
+    'DOMDocumentWrapper' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/DOMDocumentWrapper.php',
+    'DOMEvent' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/DOMEvent.php',
+    'ICallbackNamed' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/Callback.php',
+    'phpQuery' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery.php',
+    'phpQueryEvents' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/phpQueryEvents.php',
+    'phpQueryObject' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/phpQueryObject.php',
+    'phpQueryObjectPlugin_Scripts' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/plugins/Scripts.php',
+    'phpQueryObjectPlugin_WebBrowser' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/plugins/WebBrowser.php',
+    'phpQueryObjectPlugin_example' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/plugins/example.php',
+    'phpQueryPlugin_Scripts' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/plugins/Scripts.php',
+    'phpQueryPlugin_WebBrowser' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/plugins/WebBrowser.php',
+    'phpQueryPlugin_example' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery/plugins/example.php',
+    'phpQueryPlugins' => $vendorDir . '/wittiws/phpquery/phpQuery/phpQuery.php',
 );

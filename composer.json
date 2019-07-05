@@ -1,5 +1,6 @@
 {
     "require": {
-        "justinrainbow/json-schema": "^5.2"
+        "justinrainbow/json-schema": "^5.2",
+        "wittiws/phpquery": "^0.9.6"
     }
 }

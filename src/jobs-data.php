@@ -1,8 +1,8 @@
 <?php
-$config = require '../config.php';
+require '../config.php';
 
 try {
-    response(200, "OK", get_jobs_obj_array());
+    response(200, "OK", get_jobs());
 } catch (Exception $e) {
     response(500, $e->getMessage(), NULL);
 }
@@ -20,12 +20,15 @@ function response($status, $status_message, $data)
     echo $json_response;
 }
 
-function get_jobs_obj_array() {
-    global $config;
-    if(!$json = file_get_contents($config['jobs_data_filepath']))
+function get_jobs()
+{
+    if(!$jobs_json = file_get_contents(CONFIG['jobs_data_filepath']))
     {
-        throw new Exception('Data load failed');
+        throw new Exception('Could not read JSON file');
     }
-    $obj_array = json_decode($json);
-    return($obj_array);
+    if(!$jobs = json_decode($jobs_json))
+    {
+        throw new Exception('Could not parse JSON file');
+    }
+    return($jobs);
 }
