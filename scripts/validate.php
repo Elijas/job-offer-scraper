@@ -2,8 +2,7 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
-if ( $argc != 1 )
-{
+if ($argc != 1) {
     echo "You must provide no arguments.\n";
     echo "Usage example: ./validate.php";
     exit(1);

@@ -22,13 +22,11 @@ function response($status, $status_message, $data)
 
 function get_jobs()
 {
-    if(!$jobs_json = file_get_contents(CONFIG['jobs_data_filepath']))
-    {
+    if (!$jobs_json = file_get_contents(CONFIG['jobs_data_filepath'])) {
         throw new Exception('Could not read JSON file');
     }
-    if(!$jobs = json_decode($jobs_json))
-    {
+    if (!$jobs = json_decode($jobs_json)) {
         throw new Exception('Could not parse JSON file');
     }
-    return($jobs);
+    return ($jobs);
 }

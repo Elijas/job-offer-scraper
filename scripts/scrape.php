@@ -17,7 +17,7 @@ function scrapeJobsData($html_source)
 {
     $dom = phpQuery::newDocument($html_source);
 
-    $jobs = $dom->find("div.career.panel-group > div.panel")->map(function($panel_element) {
+    $jobs = $dom->find("div.career.panel-group > div.panel")->map(function ($panel_element) {
         $panel = pq($panel_element);
         $link = $panel->find('a:contains(Apply for this position)');
 
@@ -41,8 +41,7 @@ function saveJobsData($jobs)
 
     if ($success = file_put_contents(CONFIG['jobs_data_filepath'], $jobs_json)) {
         echo "Success: Saved jobs data to " . CONFIG['jobs_data_filepath'];
-    }
-    else {
+    } else {
         echo "Error saving jobs data to " . CONFIG['jobs_data_filepath'];
     }
 }
