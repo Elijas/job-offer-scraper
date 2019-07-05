@@ -2,7 +2,14 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
-$html_source = file_get_contents(CONFIG['scrape_target_url']);
+if (!CONFIG['jobs_data_folder']) {
+    echo "Config variable is not set";  # If this is set to "" then script will delete files in the current directory
+    exit(1);
+}
+if (!$html_source = file_get_contents(CONFIG['scrape_target_url'])) {
+    echo "Could not get HTML";
+    exit(2);
+}
 $jobs = scrapeJobsData($html_source);
 saveJobsData($jobs);
 
