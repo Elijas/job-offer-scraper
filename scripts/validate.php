@@ -2,12 +2,6 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
-if ($argc != 1) {
-    echo "You must provide no arguments.\n";
-    echo "Usage example: ./validate.php";
-    exit(1);
-}
-
 $jobs_data = json_decode(file_get_contents(CONFIG['jobs_data_filepath']));
 $jobs_data_schema_realpath = CONFIG['jobs_data_schema_filepath'];
 
