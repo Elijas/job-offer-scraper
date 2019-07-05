@@ -2,7 +2,14 @@
 require '../vendor/autoload.php';
 require '../config.php';
 
-$html_source = file_get_contents(CONFIG['scrape_target_url']);
+if (!CONFIG['jobs_data_folder']) {
+    echo "Config variable is not set";  # If this is set to "" then script will delete files in the current directory
+    exit(1);
+}
+if (!$html_source = file_get_contents(CONFIG['scrape_target_url'])) {
+    echo "Could not get HTML";
+    exit(2);
+}
 $jobs = scrapeJobsData($html_source);
 saveJobsData($jobs);
 
@@ -30,12 +37,17 @@ function scrapeJobsData($html_source)
 
 function saveJobsData($jobs)
 {
-    $jobs_json = json_encode($jobs);
+    array_map('unlink', glob(CONFIG['jobs_data_folder'] . '/*')); # Delete all files in folder
 
-    if ($success = file_put_contents(CONFIG['jobs_data_filepath'], $jobs_json)) {
-        echo "Success: Saved jobs data to " . CONFIG['jobs_data_filepath'];
-    }
-    else {
-        echo "Error saving jobs data to " . CONFIG['jobs_data_filepath'];
+    foreach ($jobs as $key=>$job)
+    {
+        $job_json = json_encode($job);
+
+        $filename = CONFIG['jobs_data_folder'] . '/' . $key . ".json";
+        if ($success = file_put_contents($filename, $job_json)) {
+            echo "Success: Saved job data to " . $filename;
+        } else {
+            echo "Error saving job data to " . $filename;
+        }
     }
 }
